@@ -29,8 +29,9 @@ class LoginController {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $usuario->sincronizar($_POST);
+            $alerta = $usuario->validarNuevaCuenta();
 
-
+            debuguear($alerta);
         }
 
         $router->render('auth/crear-cuenta', [
