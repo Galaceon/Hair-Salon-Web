@@ -44,6 +44,10 @@ class LoginController {
                     // No esta registrado
                     $usuario->hashPassword();
 
+                    // Generar un token unico
+                    $usuario->crearToken();
+
+
                     debuguear($usuario);
                 }
             }
