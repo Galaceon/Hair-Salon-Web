@@ -37,8 +37,17 @@ class Usuario extends ActiveRecord {
         if(!$this->apellido) {
             self::$alertas['error'][] = 'El apellido del cliente es obligatorio';
         }
+        if(!$this->telefono) {
+            self::$alertas['error'][] = 'El telefono del cliente es obligatorio';
+        }
         if(!$this->email) {
             self::$alertas['error'][] = 'El email del cliente es obligatorio';
+        }
+        if(!$this->password) {
+            self::$alertas['error'][] = 'El password del cliente es obligatorio';
+        }
+        if(strlen($this->password) < 8) {
+            self::$alertas['error'][] = 'El password debe contener al menos 8 caracteres';
         }
 
         return self::$alertas;
