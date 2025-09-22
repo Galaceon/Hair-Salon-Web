@@ -42,7 +42,9 @@ class LoginController {
                     $alertas = Usuario::getAlertas(); 
                 } else {
                     // No esta registrado
-                    debuguear('El usuario no esta registrado');
+                    $usuario->hashPassword();
+
+                    debuguear($usuario);
                 }
             }
         }
