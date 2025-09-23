@@ -2,6 +2,8 @@
 
 namespace Model;
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 class Usuario extends ActiveRecord {
     // Base de Datos
     protected static $tabla = 'usuarios';
