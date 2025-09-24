@@ -42,6 +42,9 @@ class Usuario extends ActiveRecord {
         if(!$this->telefono) {
             self::$alertas['error'][] = 'El telefono del cliente es obligatorio';
         }
+        if(strlen($this->telefono) > 9) {
+            self::$alertas['error'][] = 'El telefono no puede superar los 9 caracteres';
+        }
         if(!$this->email) {
             self::$alertas['error'][] = 'El email del cliente es obligatorio';
         }
@@ -73,6 +76,6 @@ class Usuario extends ActiveRecord {
     }
 
     public function crearToken() {
-        $this->token = uniqid();
+        $this->token = trim(uniqid());
     }
 }
