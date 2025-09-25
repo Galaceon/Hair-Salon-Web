@@ -23,7 +23,7 @@ class LoginController {
 
                 if($usuario) {
                     // Verificar el password
-                    $usuario->comprobarPasswordAndVerificado();
+                    $usuario->comprobarPasswordAndVerificado($auth->password);
                 } else {
                     Usuario::setAlerta('error', 'Usuario no encontrado');
                 }
