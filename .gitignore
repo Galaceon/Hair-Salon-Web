@@ -3,6 +3,3 @@ node_modules/
 
 # Composer (PHP)
 /vendor/
-
-# Gulp - archivos generados 
-/src/
