@@ -115,8 +115,20 @@ class LoginController {
             // Leer el nuevo Password y guardarlo
 
             $password = new Usuario($_POST);
-            
+            $alertas = $password->validarPassword();
 
+            if(empty($alertas)) {
+                $usuario->password = null;
+
+                $usuario->password = $password->password;
+                $usuario->hashPassword();
+                $usuario->token = null;
+
+                $resultado = $usuario->guardar();
+                if($resultado) {
+                    header('Location: /');
+                }
+            }
         }
 
 
