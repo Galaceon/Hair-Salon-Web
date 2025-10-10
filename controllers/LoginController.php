@@ -41,13 +41,11 @@ class LoginController {
                         } else {
                             header('Location: /cita');
                         }
-
                     }
                 } else {
                     Usuario::setAlerta('error', 'Usuario no encontrado');
                 }
             }
-
         }
 
         $alertas = Usuario::getAlertas();
@@ -58,9 +56,11 @@ class LoginController {
         ]);
     }
 
+    
     public static function logout() {
         echo "Desde logout";
     }
+
 
     public static function olvide(Router $router) {
 
@@ -97,6 +97,7 @@ class LoginController {
         ]);
     }
 
+
     public static function recuperar(Router $router) {
         $alertas = [];
         $error = false;
@@ -131,7 +132,6 @@ class LoginController {
             }
         }
 
-
         $alertas = Usuario::getAlertas();
         $router -> render('auth/recuperar-password', [
             'alertas' => $alertas,
@@ -139,6 +139,7 @@ class LoginController {
         ]);
     }
     
+
     public static function crear(Router $router) {
         $usuario = new Usuario($_POST);
 
@@ -182,6 +183,7 @@ class LoginController {
             'alertas' => $alertas
         ]);
     }
+
 
     public static function mensaje(Router $router) {
 
