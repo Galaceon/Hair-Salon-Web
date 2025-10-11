@@ -1,1 +1,1 @@
-alert("Hola desde JS");
+alert("Prueba para empezar la navegacion por tabs");
