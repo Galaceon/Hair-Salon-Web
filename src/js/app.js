@@ -11,7 +11,16 @@ function iniciarApp() {
 }
 
 function mostrarSeccion() {
+    // Ocultar la sección que tenga la clase de mostrar
+    const seccionAnterior = document.querySelector('.mostrar');
     
+    if(seccionAnterior) {
+        seccionAnterior.classList.remove('mostrar');
+    }
+
+    // Seleccionar la sección con el paso
+    const seccion = document.querySelector(`#paso${paso}`)
+    seccion.classList.add("mostrar")
 }
 
 function tabs() {
