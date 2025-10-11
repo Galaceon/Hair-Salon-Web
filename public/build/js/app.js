@@ -1,1 +1,1 @@
-alert("Prueba para empezar la navegacion por tabs");
+let paso=1;function iniciarApp(){tabs()}function tabs(){document.querySelectorAll(".tabs button").forEach(function(t){t.addEventListener("click",function(t){paso=parseInt(t.target.dataset.paso)})})}document.addEventListener("DOMContentLoaded",function(){iniciarApp()});
