@@ -2,6 +2,11 @@
 <p class="descripcion-pagina">Elige tus servicios y coloca tus datos</p>
 
 <div id="app">
+    <nav class="tabs">
+        <button type="button" data-paso="1">Servicios</button>
+        <button type="button" data-paso="2">Información Cita</button>
+        <button type="button" data-paso="3">Resumen</button>
+    </nav>
     <div id="paso1" class="seccion">
         <h2>Servicios</h2>
         <p class="text-center">Elige tus Servicios a continuación</p>
