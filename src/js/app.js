@@ -8,19 +8,20 @@ document.addEventListener('DOMContentLoaded', function() {
 function iniciarApp() {
     mostrarSeccion() // Muestra y oculta las secciones
     tabs(); // Cambia la seccion cuando se presionen los tabs
+    botonesPaginador() // Agrega o quita los botones del paginador
 }
+
 
 function mostrarSeccion() {
 
     // Ocultar la sección que tenga la clase de mostrar
     const seccionAnterior = document.querySelector('.mostrar');
-    
     if(seccionAnterior) {
         seccionAnterior.classList.remove('mostrar');
     }
 
-    // Seleccionar la sección con el paso
-    const seccion = document.querySelector(`#paso${paso}`)
+    // Estilo al seleccionar la sección con el paso
+    const seccion = document.querySelector(`#paso-${paso}`)
     seccion.classList.add("mostrar")
 
     // Quita la clase de actual al tab anterior
@@ -34,6 +35,7 @@ function mostrarSeccion() {
     tab.classList.add('actual');
 }
 
+
 function tabs() {
     const botones = document.querySelectorAll('.tabs button')
 
@@ -42,6 +44,24 @@ function tabs() {
             paso = parseInt(e.target.dataset.paso);
 
             mostrarSeccion();
+
+            botonesPaginador();
         })
     })
+}
+
+function botonesPaginador() {
+    const paginaAnterior = document.querySelector('#anterior')
+    const paginaSiguiente = document.querySelector('#siguiente')
+
+    if(paso === 1) {
+        paginaAnterior.classList.add('ocultar');
+        paginaSiguiente.classList.remove('ocultar');
+    } else if(paso === 3) {
+        paginaAnterior.classList.remove('ocultar');
+        paginaSiguiente.classList.add('ocultar');
+    } else {
+        paginaAnterior.classList.remove('ocultar');
+        paginaSiguiente.classList.remove('ocultar');
+    }
 }

@@ -7,12 +7,12 @@
         <button type="button" data-paso="2">Información Cita</button>
         <button type="button" data-paso="3">Resumen</button>
     </nav>
-    <div id="paso1" class="seccion">
+    <div id="paso-1" class="seccion">
         <h2>Servicios</h2>
         <p class="text-center">Elige tus Servicios a continuación</p>
         <div id="servicios" class="listado-servicios"></div>
     </div>
-    <div id="paso2" class="seccion">
+    <div id="paso-2" class="seccion">
         <h2>Tus Datos y Cita</h2>
         <p class="text-center">Coloca tus datos y fecha de tu cita</p>
 
@@ -33,7 +33,7 @@
             </div>
         </form>
     </div>
-    <div id="paso3" class="seccion">
+    <div id="paso-3" class="seccion">
         <h2>Resumen</h2>
         <p class="text-center">Verifica que la información sea correcta</p>
     </div>
