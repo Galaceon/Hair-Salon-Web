@@ -29,6 +29,13 @@ class ActiveRecord {
         return static::$alertas;
     }
 
+    // Todos los registros
+    public static function all() {
+        $query = "SELECT * FROM " . static::$tabla;
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
     // Consulta SQL para crear un objeto en Memoria
     public static function consultarSQL($query) {
         // Consultar la base de datos
@@ -46,6 +53,7 @@ class ActiveRecord {
         // retornar los resultados
         return $array;
     }
+
 
     // Crea el objeto en memoria que es igual al de la BD
     protected static function crearObjeto($registro) {
@@ -102,12 +110,7 @@ class ActiveRecord {
         return $resultado;
     }
 
-    // Todos los registros
-    public static function all() {
-        $query = "SELECT * FROM " . static::$tabla;
-        $resultado = self::consultarSQL($query);
-        return $resultado;
-    }
+
 
     // Busca un registro por su id
     public static function find($id) {
