@@ -2,7 +2,7 @@ let paso = 1;
 const pasoInicial = 1;
 const pasoFinal = 3;
 
-// Objeto de cita
+// Objeto con info de cita
 const cita = {
     nombre: '',
     fecha: '',
@@ -154,11 +154,24 @@ function mostrarServicios(servicios) {
     })
 }
 
+// Selecciona o deselecciona un servicio para la cita
 function seleccionarServicio(servicio) {
+    // id del servicio seleccionado
     const { id } = servicio;
+    // Objeto con info cita
     const { servicios } = cita;
-    cita.servicios = [...servicios, servicio];
 
-    const divServicio = document.querySelector(`[data-id-servicio="${id}"]`)
-    divServicio.classList.add('seleccionado')
+    // Div del servicio seleccionado
+    const divServicio = document.querySelector(`[data-id-servicio="${id}"]`);
+
+    // Comprobar si un servicio ya fue agregado o quitarlo
+    if( servicios.some( agregado => agregado.id === id ) ) {
+        // Eliminarlo
+        cita.servicios = servicios.filter( agregado => agregado.id !== id );
+        divServicio.classList.remove('seleccionado');
+    } else {
+        // Agregarlo
+        cita.servicios = [...servicios, servicio];
+        divServicio.classList.add('seleccionado');
+    }
 }
