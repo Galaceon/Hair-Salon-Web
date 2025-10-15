@@ -2,6 +2,7 @@ let paso = 1;
 const pasoInicial = 1;
 const pasoFinal = 3;
 
+// Objeto de cita
 const cita = {
     nombre: '',
     fecha: '',
@@ -9,11 +10,12 @@ const cita = {
     servicios: []
 }
 
+// Espera a que el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
     iniciarApp();
 });
 
-
+// Funciones
 function iniciarApp() {
     mostrarSeccion(); // Muestra y oculta las secciones
     tabs(); // Cambia la seccion cuando se presionen los tabs
@@ -24,7 +26,7 @@ function iniciarApp() {
     consultarAPI(); // Consulta la API en el backend de PHP
 }
 
-
+// Muestra la sección que corresponde al paso
 function mostrarSeccion() {
 
     // Ocultar la sección que tenga la clase de mostrar
@@ -48,7 +50,7 @@ function mostrarSeccion() {
     tab.classList.add('actual');
 }
 
-
+// Cambia la sección cuando se presionen los tabs
 function tabs() {
     const botones = document.querySelectorAll('.tabs button');
 
@@ -63,6 +65,7 @@ function tabs() {
     })
 }
 
+// Muestra u oculta los botones del paginador
 function botonesPaginador() {
     const paginaAnterior = document.querySelector('#anterior');
     const paginaSiguiente = document.querySelector('#siguiente');
@@ -81,6 +84,7 @@ function botonesPaginador() {
     mostrarSeccion();
 }
 
+// Muestra la sección anterior
 function paginaAnterior() {
     const paginaAnterior = document.querySelector('#anterior');
     paginaAnterior.addEventListener('click', function() {
@@ -91,6 +95,7 @@ function paginaAnterior() {
     })
 }
 
+// Muestra la siguiente sección
 function paginaSiguiente() {
     const paginaSiguiente = document.querySelector('#siguiente');
     paginaSiguiente.addEventListener('click', function() {
@@ -101,11 +106,14 @@ function paginaSiguiente() {
     })
 }
 
+// Consulta la API de PHP
 async function consultarAPI() {
+    // Fetch a la URL
     try {
         const url = 'http://localhost:3000/api/servicios';
         const resultado = await fetch(url);
         const servicios = await resultado.json();
+        // console.log(servicios);
         mostrarServicios(servicios);
         
     } catch(error) {
@@ -113,18 +121,23 @@ async function consultarAPI() {
     }
 }
 
+// Muestra los servicios en el HTML
 function mostrarServicios(servicios) {
     servicios.forEach(servicio => {
+        // Destructuring de servicio
         const {id, nombre, precio} = servicio;
 
+        // Nombre del servicio
         const nombreServicio = document.createElement('P');
         nombreServicio.classList.add('nombre-servicio');
         nombreServicio.textContent = nombre;
 
+        // Precio del servicio
         const precioServicio = document.createElement('P');
         precioServicio.classList.add('precio-servicio');
         precioServicio.textContent = `$${precio}`;
-        
+
+        // Contenedor del servicio
         const servicioDiv = document.createElement('DIV');
         servicioDiv.classList.add('servicio');
         servicioDiv.dataset.idServicio = id;
@@ -132,15 +145,20 @@ function mostrarServicios(servicios) {
             seleccionarServicio(servicio);
         }
 
+        // Inyectar nombre y precio al div de servicio
         servicioDiv.appendChild(nombreServicio);
         servicioDiv.appendChild(precioServicio);
 
+        // Inyectar servicio al HTML
         document.querySelector('#servicios').appendChild(servicioDiv);
     })
 }
 
 function seleccionarServicio(servicio) {
-    const{servicios} = cita;
-
+    const { id } = servicio;
+    const { servicios } = cita;
     cita.servicios = [...servicios, servicio];
+
+    const divServicio = document.querySelector(`[data-id-servicio="${id}"]`)
+    divServicio.classList.add('seleccionado')
 }
