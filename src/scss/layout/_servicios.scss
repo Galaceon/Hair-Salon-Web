@@ -15,6 +15,7 @@
         border-radius: 1rem;
         transition: transform .3s ease-out;
         text-align: center;
+        cursor: pointer;
 
         &:hover {
             transform: scale(1.05);
