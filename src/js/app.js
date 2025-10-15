@@ -24,6 +24,8 @@ function iniciarApp() {
     paginaAnterior();
 
     consultarAPI(); // Consulta la API en el backend de PHP
+
+    nombreCliente();
 }
 
 // Muestra la sección que corresponde al paso
@@ -174,4 +176,11 @@ function seleccionarServicio(servicio) {
         cita.servicios = [...servicios, servicio];
         divServicio.classList.add('seleccionado');
     }
+}
+
+// Extraer nombre para el objeto cita
+function nombreCliente() {
+    const nombre = document.querySelector('#nombre').value;
+
+    cita.nombre = nombre;
 }
