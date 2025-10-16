@@ -19,17 +19,17 @@
         <form class="formulario">
             <div class="campo">
                 <label for="nombre">Nombre</label>
-                <input type="text" name="nombre" placeholder="Tu nombre" value="<?php echo$nombre; ?>" disabled>
+                <input type="text" id="nombre" placeholder="Tu nombre" value="<?php echo$nombre; ?>" disabled>
             </div>
 
             <div class="campo">
                 <label for="fecha">Fecha</label>
-                <input type="date" name="fecha">
+                <input type="date" id="fecha">
             </div>
 
             <div class="campo">
                 <label for="hora">Hora</label>
-                <input type="time" name="hora">
+                <input type="time" id="hora">
             </div>
         </form>
     </div>
