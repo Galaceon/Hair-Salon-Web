@@ -201,7 +201,7 @@ function seleccionarFecha() {
         // 0 es domingo y 6 es sábado, no se permite
         if( [6, 0].includes(dia) ) {
             e.target.value = '';
-            mostrarAlerta('Fines de Semana no permitidos', 'error');
+            mostrarAlerta('Fines de Semana no permitidos', 'error', '.formulario');
         } else {
             cita.fecha = e.target.value;
         }
@@ -219,7 +219,7 @@ function seleccionarHora() {
 
         // Hora válida entre 10 y 18
         if(hora < 10 || hora > 18) {
-            mostrarAlerta('Hora no valida', 'error');
+            mostrarAlerta('Hora no valida', 'error', '.formulario');
         } else {
             // Asignar hora al objeto de cita
             cita.hora = e.target.value;
@@ -227,10 +227,12 @@ function seleccionarHora() {
     })
 }
 
-function mostrarAlerta(mensaje, tipo) {
+function mostrarAlerta(mensaje, tipo, elemento, desaparece = true) {
     // Previene que se genere mas de una alerta
     const alertaPrevia = document.querySelector('.alerta');
-    if(alertaPrevia) return;
+    if(alertaPrevia) {
+        alertaPrevia.remove();
+    }
 
     // Crear alerta en DOM
     const alerta = document.createElement('DIV');
@@ -239,20 +241,23 @@ function mostrarAlerta(mensaje, tipo) {
     alerta.classList.add(tipo);
 
     // Imprimir alerta en DOM
-    const formulario = document.querySelector('.formulario');
-    formulario.appendChild(alerta);
+    const referencia = document.querySelector(elemento);
+    referencia.appendChild(alerta);
 
-    // Eliminar alerta en 3.5s
-    setTimeout(() => {
-        alerta.remove();
-    }, 3500);
+    if(desaparece) {
+        // Eliminar alerta en 3.5s
+        setTimeout(() => {
+            alerta.remove();
+        }, 4500);
+    }
 }
 
 function mostrarResumen() {
     const resumen = document.querySelector('.contenido-resumen');
 
-    if(Object.values(cita).includes('')) {
-        console.log('Hacen falta datos');
+    if(Object.values(cita).includes('') || cita.servicios.length === 0) {
+        mostrarAlerta('Hacen falta Datos o Servicios, Fecha u Hora', 'error', '.contenido-resumen', false)
+        console.log('Hacen falta Datos o Servicios');
     } else {
         console.log('Conseguido')
     }
