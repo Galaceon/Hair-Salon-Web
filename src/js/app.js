@@ -186,16 +186,40 @@ function nombreCliente() {
     cita.nombre = nombre;
 }
 
+// Almacena la fecha en el objeto de cita
 function seleccionarFecha() {
     const inputFecha = document.querySelector('#fecha');
     inputFecha.addEventListener('input', function(e) {
-
+        // Obtener el día de la semana (0-6) domingo a sábado
         const dia = new Date(e.target.value).getUTCDay();
 
+        // 0 es domingo y 6 es sábado, no se permite
         if( [6, 0].includes(dia) ) {
             e.target.value = '';
+            mostrarAlerta('Fines de Semana no permitidos', 'error');
         } else {
             cita.fecha = e.target.value;
         }
     })
+}
+
+function mostrarAlerta(mensaje, tipo) {
+    // Previene que se genere mas de una alerta
+    const alertaPrevia = document.querySelector('.alerta');
+    if(alertaPrevia) return;
+
+    // Crear alerta en DOM
+    const alerta = document.createElement('DIV');
+    alerta.textContent = mensaje;
+    alerta.classList.add('alerta');
+    alerta.classList.add(tipo);
+
+    // Imprimir alerta en DOM
+    const formulario = document.querySelector('.formulario');
+    formulario.appendChild(alerta);
+
+    // Eliminar alerta en 3.5s
+    setTimeout(() => {
+        alerta.remove();
+    }, 3500);
 }
