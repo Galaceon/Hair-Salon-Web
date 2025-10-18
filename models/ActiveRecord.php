@@ -90,10 +90,13 @@ class ActiveRecord {
 
     // Sincroniza BD con Objetos en memoria
     public function sincronizar($args=[]) {
+        // $args = ['nombre' => 'Nuevo Nombre', $key => $value]
         foreach($args as $key => $value) {
-          if(property_exists($this, $key) && !is_null($value)) {
-            $this->$key = $value;
-          }
+            // si existe la propiedad y el valor no es nulo
+            if(property_exists($this, $key) && !is_null($value)) {
+                // this->nombre = 'Nuevo Nombre'
+                $this->$key = $value;
+            }
         }
     }
 
@@ -120,7 +123,9 @@ class ActiveRecord {
     }
 
 
+    // Busca un registro por una columna especifica
     public static function where($columna, $valor) {
+        // Selecciona de la tabla donde $email = anto@example.com
         $query = "SELECT * FROM " . static::$tabla  ." WHERE {$columna} = '{$valor}'";
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;

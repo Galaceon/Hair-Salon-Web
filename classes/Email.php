@@ -32,6 +32,7 @@ class Email {
         $mail->Subject = 'Confirma tu cuenta';
 
         // Set HTML
+        // Cuerpo del mail con el token de reestablecimiento en la URL
         $mail->isHTML(TRUE);
         $mail->CharSet = 'UTF-8';
 
@@ -62,6 +63,7 @@ class Email {
         $mail->Subject = 'Reestablece tu password';
 
         // Set HTML
+        // Cuerpo del mail con el token de reestablecimiento en la URL
         $mail->isHTML(TRUE);
         $mail->CharSet = 'UTF-8';
 

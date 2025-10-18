@@ -58,6 +58,7 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+    // Valida los campos para iniciar sesión
     public function validarLogin() {
         if(!$this->email) {
             self::$alertas['error'][] = 'El email es obligatorio';
@@ -69,6 +70,8 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+
+    // Valida si el usuario escribio un email
     public function validarEmail() {
         if(!$this->email) {
             self::$alertas['error'][] = 'El email es Obligatorio';
@@ -77,6 +80,8 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+
+    // Valida el password por longitud de caracteres o si está vacío
     public function validarPassword() {
         if(!$this->password) {
             self::$alertas['error'][] = 'El Password es Obligatorio';

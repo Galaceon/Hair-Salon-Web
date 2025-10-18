@@ -27,12 +27,13 @@ class LoginController {
                         // Autenticar el usuario
                         session_start();
 
+                        // Asignar valores a la sesión
                         $_SESSION['id'] = $usuario->id;
                         $_SESSION['nombre'] = $usuario->nombre . " " . $usuario->apellido;
                         $_SESSION['email'] = $usuario->email;
                         $_SESSION['login'] = true;
 
-                        // Redireccionamiento
+                        // Redireccionamiento por usuario admin o normal
                         if($usuario->admin === "1") {
                             $_SESSION['admin'] = $usuario->admin ?? null;
 
@@ -42,6 +43,7 @@ class LoginController {
                         }
                     }
                 } else {
+                    // Usuario no encontrado
                     Usuario::setAlerta('error', 'Usuario no encontrado');
                 }
             }
@@ -70,10 +72,11 @@ class LoginController {
             $alertas = $auth->validarEmail();
 
             if(empty($alertas)) {
+                // Comprobar si el email del formulario esta en la DB
                 $usuario = Usuario::where('email', $auth->email);
 
                 if($usuario && $usuario->confirmado === "1") {
-                    // Generar un token
+                    // Generar un token unico para que el usuario pueda cambiar el password
                     $usuario->crearToken();
                     $usuario->guardar();
 
@@ -99,6 +102,7 @@ class LoginController {
 
     public static function recuperar(Router $router) {
         $alertas = [];
+        // true = la vista no debe mostrar el formulario
         $error = false;
 
         $token = s($_GET['token']);
@@ -108,18 +112,20 @@ class LoginController {
 
         if(empty($usuario)) {
             Usuario::setAlerta('error', 'Token no válido');
+            // true = la vista no debe mostrar el formulario
             $error = true;
         }
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Leer el nuevo Password y guardarlo
-
+            // Leer el nuevo Password y guardarlo en la BD
             $password = new Usuario($_POST);
             $alertas = $password->validarPassword();
 
             if(empty($alertas)) {
+                // Vaciar el password antiguo
                 $usuario->password = null;
 
+                // Asignar el nuevo password
                 $usuario->password = $password->password;
                 $usuario->hashPassword();
                 $usuario->token = null;
@@ -134,29 +140,35 @@ class LoginController {
         $alertas = Usuario::getAlertas();
         $router -> render('auth/recuperar-password', [
             'alertas' => $alertas,
+            // true = la vista no debe mostrar el formulario
             'error' => $error
         ]);
     }
-    
+
 
     public static function crear(Router $router) {
         $usuario = new Usuario($_POST);
 
         // Alertas Vacias
         $alertas = [];
+
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Sincronizar el objeto usuario con los datos del formulario
             $usuario->sincronizar($_POST);
+            // Validar que no haya campos vacios
             $alertas = $usuario->validarNuevaCuenta();
 
             // Revisar que alertas este vacio
             if(empty($alertas)) {
-                // Verificar que el usuario no esta registrado
+                // Verificar que el usuario no esta registrado/ que sea nuevo
                 $resultado = $usuario->existeUsuario();
 
+                // Si existe el usuario
                 if($resultado->num_rows) {
                     $alertas = Usuario::getAlertas(); 
                 } else {
                     // No esta registrado
+                    // Hashear el password
                     $usuario->hashPassword();
 
                     // Generar un token unico
@@ -185,7 +197,6 @@ class LoginController {
 
 
     public static function mensaje(Router $router) {
-
         $router->render('auth/mensaje');
     }
     
@@ -193,8 +204,10 @@ class LoginController {
     public static function confirmar(Router $router) {
         $alertas = [];
 
+        // Obtener el token de la URL
         $token = trim(s($_GET['token']));
 
+        // Buscar usuario por su token en la BD
         $usuario = Usuario::where('token', $token);
 
         if(empty($usuario)) {
