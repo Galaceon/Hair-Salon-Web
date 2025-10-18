@@ -76,15 +76,16 @@ function botonesPaginador() {
     const paginaAnterior = document.querySelector('#anterior');
     const paginaSiguiente = document.querySelector('#siguiente');
 
-    if(paso === 1) {
+    
+    if(paso === 1) { // Si estamos en el paso 1 mostrar solo siguiente
         paginaAnterior.classList.add('ocultar');
         paginaSiguiente.classList.remove('ocultar');
-    } else if(paso === 3) {
+    } else if(paso === 3) { // Si estamos en el paso 3 mostrar solo anterior
         paginaAnterior.classList.remove('ocultar');
         paginaSiguiente.classList.add('ocultar');
 
         mostrarResumen();
-    } else {
+    } else { // Si estamos en el paso 2 mostrar ambos
         paginaAnterior.classList.remove('ocultar');
         paginaSiguiente.classList.remove('ocultar');
     }
@@ -269,18 +270,17 @@ function mostrarResumen() {
     // Formatear el div de resumen
     const { nombre, fecha, hora, servicios } = cita;
 
-    const nombreCliente = document.createElement('P');
-    nombreCliente.innerHTML = `<span>Nombre:</span> ${nombre}`;
 
-    const fechaCita = document.createElement('P');
-    fechaCita.innerHTML = `<span>Fecha:</span> ${fecha}`;
+    // Heading para Servicios en Resumen
+    const headingServicios = document.createElement('H3');
+    headingServicios.textContent = 'Resumen de Servicios';
+    resumen.appendChild(headingServicios);
 
-    const horaCita = document.createElement('P');
-    horaCita.innerHTML = `<span>Hora:</span> ${hora}`;
-
+    // Iterando y mostrando los servicios
     servicios.forEach(servicio => {
         const { id, precio, nombre } = servicio;
 
+        // Por cada servicio crear un div
         const contenedorServicio = document.createElement('DIV');
         contenedorServicio.classList.add('contenedor-servicio');
 
@@ -290,12 +290,30 @@ function mostrarResumen() {
         const precioServicio = document.createElement('P');
         precioServicio.innerHTML = `<span>Precio:</span> $${precio}`;
 
+        // Inyectar texto y precio al contenedor
         contenedorServicio.appendChild(textoServicio);
         contenedorServicio.appendChild(precioServicio);
 
+        // Inyectar contenedor con nombre y precio al resumen
         resumen.appendChild(contenedorServicio);
     })
 
+    // Heading para Cliente en Resumen
+    const headingCita = document.createElement('H3');
+    headingCita.textContent = 'Resumen del Cliente';
+    resumen.appendChild(headingCita);
+
+    // Datos del cliente
+    const nombreCliente = document.createElement('P');
+    nombreCliente.innerHTML = `<span>Nombre:</span> ${nombre}`;
+
+    const fechaCita = document.createElement('P');
+    fechaCita.innerHTML = `<span>Fecha:</span> ${fecha}`;
+
+    const horaCita = document.createElement('P');
+    horaCita.innerHTML = `<span>Hora:</span> ${hora}`;
+
+    // Inyectar al resumen HTML
     resumen.appendChild(nombreCliente);
     resumen.appendChild(fechaCita);
     resumen.appendChild(horaCita);
