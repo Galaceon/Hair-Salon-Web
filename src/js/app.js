@@ -263,6 +263,8 @@ function mostrarResumen() {
 
     if(Object.values(cita).includes('') || cita.servicios.length === 0) {
         mostrarAlerta('Hacen falta Datos o Servicios, Fecha u Hora', 'error', '.contenido-resumen', false);
+        
+        console.log();
 
         return;
     }
@@ -329,7 +331,7 @@ function mostrarResumen() {
     botonReservar.classList.add('boton');
     botonReservar.textContent = 'Reservar Cita';
     botonReservar.onclick = reservarCita;
-
+    
     // Inyectar al resumen HTML
     resumen.appendChild(nombreCliente);
     resumen.appendChild(fechaCita);
