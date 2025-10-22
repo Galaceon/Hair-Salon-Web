@@ -263,8 +263,6 @@ function mostrarResumen() {
 
     if(Object.values(cita).includes('') || cita.servicios.length === 0) {
         mostrarAlerta('Hacen falta Datos o Servicios, Fecha u Hora', 'error', '.contenido-resumen', false);
-        
-        console.log();
 
         return;
     }
@@ -341,13 +339,14 @@ function mostrarResumen() {
 
 async function reservarCita() {
     const datos = new FormData();
-
     datos.append('nombre', 'Anto');
+    datos.append('edad', 22);
     
     // Petición hacia la API
     const url = 'http://localhost:3000/api/citas';
     const respuesta = await fetch(url, {
-        method: 'POST'
+        method: 'POST',
+        body: datos
     });
 
     const resultado = await respuesta.json();
