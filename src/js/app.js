@@ -41,7 +41,7 @@ function mostrarSeccion() {
         seccionAnterior.classList.remove('mostrar');
     }
 
-    // Estilo al seleccionar la sección con el paso
+    // Estilo al seleccionasession_startr la sección con el paso
     const seccion = document.querySelector(`#paso-${paso}`);
     seccion.classList.add("mostrar");
 
@@ -336,8 +336,22 @@ function mostrarResumen() {
     resumen.appendChild(nombreCliente);
     resumen.appendChild(fechaCita);
     resumen.appendChild(horaCita);
+    resumen.appendChild(botonReservar);
 }
 
-function reservarCita() {
-    console.log('Reservando...');
+async function reservarCita() {
+    const datos = new FormData();
+
+    datos.append('nombre', 'Anto');
+    
+    // Petición hacia la API
+    const url = 'http://localhost:3000/api/citas';
+    const respuesta = await fetch(url, {
+        method: 'POST'
+    });
+
+    const resultado = await respuesta.json();
+
+    console.log(resultado);
+
 }

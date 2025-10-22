@@ -2,7 +2,7 @@
 @use 'base/mixins' as m;
 
 .paginacion {
-    padding: v.$separacion;
+    padding: 2rem;
 
     @include m.telefono {
         display: flex;
