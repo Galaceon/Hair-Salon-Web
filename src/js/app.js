@@ -11,10 +11,12 @@ const cita = {
     servicios: []
 }
 
+
 // Espera a que el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
     iniciarApp();
 });
+
 
 // Funciones
 function iniciarApp() {
@@ -26,12 +28,14 @@ function iniciarApp() {
 
     consultarAPI(); // Consulta la API en el backend de PHP
 
+    idCliente();
     nombreCliente(); // Añade el nombre del cliente al objeto de cita
     seleccionarFecha() // Añade la fecha de la cita en el objeto
     seleccionarHora() //Añade la hora de la cita en el objeto
 
     mostrarResumen(); // Muestra el resumen de la cita
 }
+
 
 // Muestra la sección que corresponde al paso
 function mostrarSeccion() {
@@ -57,6 +61,7 @@ function mostrarSeccion() {
     tab.classList.add('actual');
 }
 
+
 // Cambia la sección cuando se presionen los tabs
 function tabs() {
     const botones = document.querySelectorAll('.tabs button');
@@ -71,6 +76,7 @@ function tabs() {
         })
     })
 }
+
 
 // Muestra u oculta los botones del paginador
 function botonesPaginador() {
@@ -94,6 +100,7 @@ function botonesPaginador() {
     mostrarSeccion();
 }
 
+
 // Muestra la sección anterior
 function paginaAnterior() {
     const paginaAnterior = document.querySelector('#anterior');
@@ -105,6 +112,7 @@ function paginaAnterior() {
     })
 }
 
+
 // Muestra la siguiente sección
 function paginaSiguiente() {
     const paginaSiguiente = document.querySelector('#siguiente');
@@ -115,6 +123,7 @@ function paginaSiguiente() {
         botonesPaginador();
     })
 }
+
 
 // Consulta la API de PHP
 async function consultarAPI() {
@@ -130,6 +139,7 @@ async function consultarAPI() {
         console.log(error);
     }
 }
+
 
 // Muestra los servicios en el HTML
 function mostrarServicios(servicios) {
@@ -164,6 +174,7 @@ function mostrarServicios(servicios) {
     })
 }
 
+
 // Selecciona o deselecciona un servicio para la cita
 function seleccionarServicio(servicio) {
     // id del servicio seleccionado
@@ -186,12 +197,21 @@ function seleccionarServicio(servicio) {
     }
 }
 
+
+function idCliente() {
+    const id = document.querySelector('#id').value;
+
+    cita.id = id;
+}
+
+
 // Extraer nombre para el objeto cita
 function nombreCliente() {
     const nombre = document.querySelector('#nombre').value;
 
     cita.nombre = nombre;
 }
+
 
 // Almacena la fecha en el objeto de cita
 function seleccionarFecha() {
@@ -209,6 +229,7 @@ function seleccionarFecha() {
         }
     })
 }
+
 
 // Almacena la hora en el objeto de cita
 function seleccionarHora() {
@@ -228,6 +249,7 @@ function seleccionarHora() {
         }
     })
 }
+
 
 function mostrarAlerta(mensaje, tipo, elemento, desaparece = true) {
     // Previene que se genere mas de una alerta
@@ -254,6 +276,7 @@ function mostrarAlerta(mensaje, tipo, elemento, desaparece = true) {
     }
 }
 
+
 function mostrarResumen() {
     const resumen = document.querySelector('.contenido-resumen');
 
@@ -264,6 +287,8 @@ function mostrarResumen() {
 
     if(Object.values(cita).includes('') || cita.servicios.length === 0) {
         mostrarAlerta('Hacen falta Datos o Servicios, Fecha u Hora', 'error', '.contenido-resumen', false);
+
+        console.log(cita);
 
         return;
     }
@@ -338,25 +363,47 @@ function mostrarResumen() {
     resumen.appendChild(botonReservar);
 }
 
+
 async function reservarCita() {
-    const { nombre, fecha, hora, servicios } = cita
+    const { nombre, fecha, hora, servicios, id } = cita
 
     const idServicios = servicios.map( servicio => servicio.id);
 
     const datos = new FormData();
-    datos.append('nombre', nombre);
+    datos.append('usuarioId', id);
     datos.append('fecha', fecha);
     datos.append('hora', hora);
     datos.append('servicios', idServicios);
 
-    console.log([...datos]);
-    
-    // Petición hacia la API
-    const url = 'http://localhost:3000/api/citas';
-    const respuesta = await fetch(url, {
-        method: 'POST',
-        body: datos
-    });
+    // console.log([...datos]);
 
-    const resultado = await respuesta.json();
+    try {
+        // Petición hacia la API
+        const url = 'http://localhost:3000/api/citas';
+        const respuesta = await fetch(url, {
+            method: 'POST',
+            body: datos
+        });
+
+        const resultado = await respuesta.json();
+
+        if(resultado.resultado) {
+            Swal.fire({
+                icon: "success",
+                title: "Cita Creada",
+                text: "Tu cita fue creada correctamente",
+                button: 'OK',
+                theme: 'dark'
+            }).then( () => {
+                window.location.reload();
+            })
+        }
+    } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error creando tu cita",
+          text: "Tu cita no fue creada, intentalo de nuevo",
+          theme: 'dark'
+        });
+    }
 }
