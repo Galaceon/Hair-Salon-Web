@@ -4,6 +4,7 @@ const pasoFinal = 3;
 
 // Objeto con info de cita
 const cita = {
+    id: '',
     nombre: '',
     fecha: '',
     hora: '',
