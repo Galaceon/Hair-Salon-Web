@@ -55,7 +55,10 @@
 
 <?php
     $script = "
+        <!-- JS para el paso a paso de la cita -->
         <script src='build/js/app.js'></script>
+
+        <!-- SweetAlert2 -->
         <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     ";
 ?>

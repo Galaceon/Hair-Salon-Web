@@ -197,18 +197,15 @@ function seleccionarServicio(servicio) {
     }
 }
 
-
+// Extraer id del cliente para el objeto cita
 function idCliente() {
     const id = document.querySelector('#id').value;
-
     cita.id = id;
 }
-
 
 // Extraer nombre para el objeto cita
 function nombreCliente() {
     const nombre = document.querySelector('#nombre').value;
-
     cita.nombre = nombre;
 }
 
@@ -250,7 +247,7 @@ function seleccionarHora() {
     })
 }
 
-
+// Muestra una alerta en Resumen segun los datos ingresados
 function mostrarAlerta(mensaje, tipo, elemento, desaparece = true) {
     // Previene que se genere mas de una alerta
     const alertaPrevia = document.querySelector('.alerta');
@@ -277,6 +274,7 @@ function mostrarAlerta(mensaje, tipo, elemento, desaparece = true) {
 }
 
 
+// Muestra el resumen de la cita
 function mostrarResumen() {
     const resumen = document.querySelector('.contenido-resumen');
 
@@ -285,17 +283,16 @@ function mostrarResumen() {
         resumen.removeChild(resumen.firstChild);
     }
 
+    // Validar que la cita esté completa y no haya campos vacíos
     if(Object.values(cita).includes('') || cita.servicios.length === 0) {
         mostrarAlerta('Hacen falta Datos o Servicios, Fecha u Hora', 'error', '.contenido-resumen', false);
-
-        console.log(cita);
-
+        // console.log(cita);
         return;
     }
 
-    // Formatear el div de resumen
+    // FORMATEAR EL DIV DE RESUMEN
+    // Destructuring de la cita
     const { nombre, fecha, hora, servicios } = cita;
-
 
     // Heading para Servicios en Resumen
     const headingServicios = document.createElement('H3');
@@ -355,7 +352,7 @@ function mostrarResumen() {
     botonReservar.classList.add('boton');
     botonReservar.textContent = 'Reservar Cita';
     botonReservar.onclick = reservarCita;
-    
+    ormatear el div de resumen
     // Inyectar al resumen HTML
     resumen.appendChild(nombreCliente);
     resumen.appendChild(fechaCita);
@@ -364,11 +361,15 @@ function mostrarResumen() {
 }
 
 
+// Enviar la cita a la API para reservarla
 async function reservarCita() {
+    // Destructuring de la cita
     const { nombre, fecha, hora, servicios, id } = cita
 
+    // Extraer id de los servicios para el FormData
     const idServicios = servicios.map( servicio => servicio.id);
 
+    // Crear el FormData para enviar la información
     const datos = new FormData();
     datos.append('usuarioId', id);
     datos.append('fecha', fecha);
@@ -377,6 +378,7 @@ async function reservarCita() {
 
     // console.log([...datos]);
 
+    // Petición hacia la API con Fetch API y async await para reservar la cita
     try {
         // Petición hacia la API
         const url = 'http://localhost:3000/api/citas';
@@ -385,9 +387,12 @@ async function reservarCita() {
             body: datos
         });
 
+        // Leer la respuesta en formato JSON
         const resultado = await respuesta.json();
 
+        // Si es True se creó la cita
         if(resultado.resultado) {
+            // Alerta de exito con SweetAlert2
             Swal.fire({
                 icon: "success",
                 title: "Cita Creada",
