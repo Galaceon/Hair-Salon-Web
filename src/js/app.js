@@ -352,7 +352,7 @@ function mostrarResumen() {
     botonReservar.classList.add('boton');
     botonReservar.textContent = 'Reservar Cita';
     botonReservar.onclick = reservarCita;
-    ormatear el div de resumen
+    // Formatear el div de resumen
     // Inyectar al resumen HTML
     resumen.appendChild(nombreCliente);
     resumen.appendChild(fechaCita);
