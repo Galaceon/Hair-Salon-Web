@@ -9,6 +9,9 @@ class CitaController {
 
         session_start(); // Moved to Router.php to avoid multiple calls
 
+        isAuth();
+
+
         $router->render('cita/index', [
             'nombre' => $_SESSION['nombre'],
             'id' => $_SESSION['id']
