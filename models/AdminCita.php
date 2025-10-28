@@ -11,7 +11,7 @@ class AdminCita extends ActiveRecord {
     public $cliente;
     public $email;
     public $telefono;
-    public $iservicio;
+    public $servicio;
     public $precio;
 
     public function __construct()
