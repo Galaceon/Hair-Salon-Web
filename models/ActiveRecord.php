@@ -128,7 +128,15 @@ class ActiveRecord {
         // Selecciona de la tabla donde $email = anto@example.com
         $query = "SELECT * FROM " . static::$tabla  ." WHERE {$columna} = '{$valor}'";
         $resultado = self::consultarSQL($query);
+        // array_shift — Devuelve el primer elemento del array
         return array_shift( $resultado ) ;
+    }
+
+    // Consulta Plana de SQL (Utilizar cuando los métodos del modelo no son suficientes)
+    public static function SQL($consulta) {
+        $query = $consulta;
+        $resultado = self::consultarSQL($query);
+        return $resultado;
     }
 
     // Obtener Registros con cierta cantidad
