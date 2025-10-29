@@ -19,20 +19,32 @@
         <?php
         $idCita = 0;
 
-        foreach($citas as $cita) { 
-            if($idCita !== $cita->id) { ?>
+        foreach($citas as $key => $cita) { 
+            if($idCita !== $cita->id) { 
+                $total = 0;
+        ?>
                 <li>
                     <p>ID: <span><?php echo $cita->id; ?></span></p>
                     <p>Hora: <span><?php echo $cita->hora; ?></span></p>
-                    <p>Cliente: <span><?php echo $cita->cliente; ?></span></p>
+                    <p>Cliente: <span><?php echo $cita->cliente; ?><conky -c ~/.config/conky/minimal-system.conkyrc/span></p>
                     <p>Email: <span><?php echo $cita->email; ?></span></p>
                     <p>Telefono: <span><?php echo $cita->telefono; ?></span></p>
 
                     <h3>Servicios</h3>
                 <?php
                     $idCita = $cita->id;
-            } // Fin del if ?>
-                    <p class="servicio"><?php echo $cita->servicio . " " . $cita->precio; ?></p>
+            } // Fin del if 
+                $total += $cita->precio;
+                ?>
+                    <p class="servicio"><?php echo $cita->servicio . " - " . $cita->precio; ?>€</p>
+                <?php
+                    $actual = $cita->id;
+                    $proximo = $citas[$key + 1]->id ?? 0;
+
+                    if(esUltimo($actual, $proximo)) { ?>
+                        <p class="total">Total: <span><?php echo $total; ?>€</span></p>
+                    <?php }
+                ?>
         <?php } // Fin de forEach ?>
     </ul>
 </div>
