@@ -3,7 +3,7 @@
 namespace Model;
 
 class Servicio extends ActiveRecord {
-    // Bae de datos
+    // Base de datos
     protected static $tabla = 'servicios';
     protected static $columnasDB = ['id', 'nombre', 'precio'];
 
@@ -15,5 +15,19 @@ class Servicio extends ActiveRecord {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
         $this->precio = $args['precio'] ?? '';
+    }
+
+    public function validar() {
+        if(!$this->nombre) {
+            self::$alertas['error'][] = 'El nombre del Servicio es Obligatorio';
+        }
+        if(!$this->precio) {
+            self::$alertas['error'][] = 'El precio del Servicio es Obligatorio';
+        }
+        if(!is_numeric($this->precio)) {
+            self::$alertas['error'][] = 'El precio no es Válido';
+        }
+
+        return self::$alertas;
     }
 }
