@@ -9,5 +9,5 @@
 <form method="POST" class="formulario">
     <?php include_once __DIR__ . '/formulario.php' ?>
 
-    <input type="submit" class="boton" value="Guardar Servicio">
+    <input type="submit" class="boton" value="Actualizar">
 </form>
