@@ -1,5 +1,7 @@
 <?php
 
+// Modelo para los servicios ofrecidos
+
 namespace Model;
 
 class Servicio extends ActiveRecord {
