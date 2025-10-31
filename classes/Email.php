@@ -1,7 +1,10 @@
 <?php
 
+// Clase para el manejo de envíos de correos electrónicos
+
 namespace Classes;
 
+// Importar PHPMailer para el envío de correos
 use PHPMailer\PHPMailer\PHPMailer;
 
 class Email {

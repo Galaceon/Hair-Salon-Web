@@ -40,7 +40,7 @@ class APIController {
         echo json_encode(['resultado' => $resultado]);
     }
 
-
+    // Elimina una cita y los servicios asociados desde la API
     public static function eliminar() {
         
         if($_SERVER['REQUEST_METHOD'] === 'POST') {

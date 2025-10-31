@@ -1,5 +1,7 @@
 <?php
 
+// Modelo para la relación entre citas y servicios
+
 namespace Model;
 
 class CitaServicio extends ActiveRecord {

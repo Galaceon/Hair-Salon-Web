@@ -17,6 +17,7 @@
             </div>
         </div>
 
+        <!-- php para detectar si hay scripts en la vista que las necesiten -->
         <?php
             echo $script ?? '';
         ?>

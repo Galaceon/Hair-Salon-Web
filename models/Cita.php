@@ -1,4 +1,7 @@
 <?php
+
+// Modelo para las citas de los clientes
+
 namespace Model;
 
 class Cita extends ActiveRecord {

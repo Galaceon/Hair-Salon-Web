@@ -1,5 +1,7 @@
 <?php
 
+// Modelo para los usuarios del sistema
+
 namespace Model;
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -107,14 +109,17 @@ class Usuario extends ActiveRecord {
         return $resultado;
     }
 
+    // Hash del password
     public function hashPassword() {
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
     }
 
+    // Genera un token único para confirmar la cuenta
     public function crearToken() {
         $this->token = trim(uniqid());
     }
 
+    // Verifica el password y si el usuario está confirmado
     public function comprobarPasswordAndVerificado($password) {
         $resultado = password_verify($password, $this->password);
 

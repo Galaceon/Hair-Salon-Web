@@ -7,7 +7,7 @@ use MVC\Router;
 class CitaController {
     public static function index(Router $router) {
 
-        session_start(); // Moved to Router.php to avoid multiple calls
+        session_start();
 
         // Si no hay sesión, redireccionar a login
         isAuth();

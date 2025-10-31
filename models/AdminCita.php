@@ -1,5 +1,7 @@
 <?php
 
+// Modelo para administrar las citas y sus servicios asociados
+
 namespace Model;
 
 class AdminCita extends ActiveRecord {
