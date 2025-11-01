@@ -131,7 +131,7 @@ function paginaSiguiente() {
 async function consultarAPI() {
     // Fetch a la URL
     try {
-        const url = `${location.origin}/api/citas`;
+        const url = `${window.location.origin}/api/servicios`;
         const resultado = await fetch(url);
         const servicios = await resultado.json();
         // console.log(servicios);
@@ -383,7 +383,7 @@ async function reservarCita() {
     // Petición hacia la API con Fetch API y async await para reservar la cita
     try {
         // Petición hacia la API
-        const url = `${location.origin}/api/citas`;
+        const url = `${window.location.origin}/api/servicios`;
         const respuesta = await fetch(url, {
             method: 'POST',
             body: datos
