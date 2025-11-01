@@ -33,6 +33,7 @@
 
             <div class="campo">
                 <label for="fecha">Fecha</label>
+                <!-- strftime +1day ya que no se puede reservar para hoy -->
                 <input type="date" id="fecha" min="<?php echo date('Y-m-d', strtotime('+1 day') ); ?>">
             </div>
 

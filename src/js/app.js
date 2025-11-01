@@ -1,3 +1,5 @@
+// Explicacion: Javascript para la gestión de la reserva de citas
+
 let paso = 1;
 const pasoInicial = 1;
 const pasoFinal = 3;
