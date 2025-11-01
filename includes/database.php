@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $db = mysqli_connect(
@@ -12,6 +12,7 @@ $db = mysqli_connect(
     $_ENV['DB_NAME']
 );
 
+$db->set_charset("utf8");
 
 if (!$db) {
     echo "Error: No se pudo conectar a MySQL.";

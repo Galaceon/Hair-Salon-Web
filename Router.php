@@ -16,7 +16,9 @@ class Router
     }
 
     public function comprobarRutas() {
-        $currentUrl = $_SERVER['PATH_INFO'] ?? '/';
+        // Obtener la URL actual, no toma en cuenta a partir del ?
+        $currentUrl = strtok($_SERVER['REQUEST_URI'], '?') ?? '/';
+        // Obtener el método de la petición
         $method = $_SERVER['REQUEST_METHOD'];
 
         if ($method === 'GET') {
